@@ -1,5 +1,6 @@
 #include "app_controller.h"
 #include <Fonts/FreeSerifItalic18pt7b.h>
+#include <project.h>
 
 using namespace mono::geo;
 
@@ -9,14 +10,14 @@ const display::Color PomegranateColor(192, 57, 43);
 const int AppController::beepSequence[3][2] = {{200,100}, {200,100}, {0,400}};
 
 AppController::AppController() :
-    pwrsave(5000, 15000),
+    pwrsave(30000, 10000, 11, 100),
     clockView(Rect(10,30,156,50), "00:00"),
     helpLbl(Rect(10,220-45,156,35), "Alarm clock"),
     alarmView(Rect(10,80,156,35), "Set alarm"),
     dismissView(Rect(10,220-45,156,35),"Off"),
     snoozeView(Rect(10,110-17,156,35), "Snooze")
 {
-    
+    PWM_WritePeriod(100);
     alarmSounding = false;
     //DateTime::setSystemDateTime(DateTime());
     
