@@ -1,0 +1,7 @@
+sim
+build
+.clang_complete
+.qmake.stash
+*.elf
+mono_project.map
+*.xcodeproj
