@@ -1,17 +1,21 @@
 
 #include "set_time_controller.h"
+#include <icons/clock-24.h>
 
 using namespace mono;
 using mono::geo::Rect;
+using mono::geo::Point;
 
 SetTimeController::SetTimeController() : Scene(),
-    hourSelect(Rect(35, 30, 50, 70), 0, 23),
-    minSelect(Rect(90, 30, 50, 70), 0, 59),
-    clockBtn(Rect(35,220-65,105,35), "Set time")
+    hourSelect(Rect(25, 30, 50, 70), 0, 23),
+    minSelect(Rect(100, 30, 50, 70), 0, 59),
+    clockBtn(Rect(25,220-65,125,35), "Set time"),
+    clockView(Point(176/2-24/2, 11), clock24)
 {
     addView(hourSelect);
     addView(minSelect);
     addView(clockBtn);
+    addView(clockView);
     
     setShowCallback<SetTimeController>(this, &SetTimeController::didShow);
     setHideCallback<SetTimeController>(this, &SetTimeController::didHide);

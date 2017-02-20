@@ -1,34 +1,44 @@
 #include "app_controller.h"
-#include <Fonts/FreeSerifItalic18pt7b.h>
+#include <Fonts/FreeMonoBold24pt7b.h>
 #include <project.h>
+#include <icons/alarm-bell-16.h>
+#include <icons/alarm-clock-24.h>
 
 using namespace mono::geo;
 
 const String clockNotSetText("Press to set clock!");
 const String alarmNotSet("Press to set an alarm");
 const display::Color PomegranateColor(192, 57, 43);
+const display::Color NephritisColor(39, 174, 96);
 const int AppController::beepSequence[3][2] = {{200,100}, {200,100}, {0,400}};
 
 AppController::AppController() :
     pwrsave(30000, 10000, 11, 100),
-    clockView(Rect(10,30,156,50), "00:00"),
+    clockView(Rect(10,50,146,50), "00:00"),
     helpLbl(Rect(10,220-45,156,35), "Alarm clock"),
-    alarmView(Rect(10,80,156,35), "Set alarm"),
+    alarmView(Rect(10,100,156,35), "Set alarm"),
     dismissView(Rect(10,220-45,156,35),"Off"),
-    snoozeView(Rect(10,110-17,156,35), "Snooze")
+    snoozeView(Rect(10,110-17,156,35), "Snooze"),
+    alarmIcon(geo::Point(176/2-16/2+10, 110), alarmBell16),
+    clockIcon(geo::Point(156-24, 105), alarmClock24)
 {
+#ifndef EMUNO
     PWM_WritePeriod(100);
+#endif
+    
     alarmSounding = false;
     //DateTime::setSystemDateTime(DateTime());
     
     clockIncrement.setTask<AppController>(this, &AppController::updateClock);
 
-    clockView.setAlignment(TextLabelView::ALIGN_CENTER);
-    clockView.setFont(FreeSerifItalic18pt7b);
+    clockView.setAlignment(TextLabelView::ALIGN_RIGHT);
+    clockView.setFont(FreeMonoBold24pt7b);
     
     alarmView.setText(PomegranateColor);
     alarmView.setBorder(View::StandardBackgroundColor);
     alarmView.setClickCallback<AppController>(this, &AppController::showSetAlarm);
+    alarmIcon.setForeground(PomegranateColor);
+    clockIcon.setForeground(display::EmeraldColor);
     
     helpLbl.setText(PomegranateColor);
     helpLbl.setBorder(View::StandardBackgroundColor);
@@ -41,6 +51,8 @@ AppController::AppController() :
     mainScene.addView(alarmView);
     mainScene.addView(dismissView);
     mainScene.addView(snoozeView);
+    mainScene.addView(alarmIcon);
+    mainScene.addView(clockIcon);
     
     // Set clock scene
     setTimeCtrl.setDismissCallback<AppController>(this, &AppController::showMain);
@@ -62,21 +74,21 @@ void AppController::updateClock()
     if (setTimeCtrl.IsClockSet())
     {
         DateTime now = DateTime::now();
-        clockView.setText(display::AlizarinColor);
-        clockView.setText(String::Format("%02d:%02d", now.Hours(), now.Minutes()));
+        clockView.setText(setAlarmCtrl.IsAlarmSet() ? PomegranateColor : EmeraldColor);
+        clockView.setText(String::Format("%d:%02d", now.Hours(), now.Minutes()));
         
         clockIncrement.reschedule(now.addSeconds(60-now.Seconds()));
     }
     else
     {
-        if (clockView.TextColor() == display::AlizarinColor)
+        if (clockView.TextColor() != View::StandardBackgroundColor)
         {
             clockView.setText(View::StandardBackgroundColor);
             clockView.scheduleRepaint();
         }
         else
         {
-            clockView.setText(display::AlizarinColor);
+            clockView.setText(display::EmeraldColor);
             clockView.scheduleRepaint();
         }
         
@@ -107,6 +119,8 @@ void AppController::didShowScene(const Scene &scene)
 {
     if (&scene == &mainScene)
     {
+        clockIcon.hide();
+        alarmIcon.hide();
         updateClock();
         
         if (!setTimeCtrl.IsClockSet())
@@ -123,20 +137,24 @@ void AppController::didShowScene(const Scene &scene)
         if (setAlarmCtrl.IsAlarmSet() && !alarmSounding)
         {
             DateTime alarm = setAlarmCtrl.alarmTime();
-            String text = String::Format("* %02d:%02d", alarm.Hours(), alarm.Minutes());
+            String text = String::Format("%02d:%02d", alarm.Hours(), alarm.Minutes());
             display::TextRender tr;
             geo::Size dim = tr.renderDimension(text, *TextLabelView::StandardGfxFont);
             //10,80,156,35
-            alarmView.setRect(Rect(10+156-(dim.Width()+24), 80, dim.Width()+24, 35));
+            alarmView.setRect(Rect(10+156-(dim.Width()+24), 100, dim.Width()+24, 35));
             alarmView.setText(text);
+            alarmIcon.setForeground(PomegranateColor);
+            alarmIcon.show();
             
             alarmTask.reschedule(alarm);
         }
         else if (!alarmSounding)
         {
-            alarmView.setRect(Rect(10, 80, 156, 35));
-            alarmView.setText("-");
+            alarmView.setRect(Rect(10, 100, 156, 35));
+            alarmView.setText("");
             alarmTask.reschedule(DateTime());
+            clockIcon.show();
+            alarmIcon.setForeground(EmeraldColor);
         }
         
         if (alarmSounding)
@@ -260,3 +278,4 @@ void AppController::monoWakeFromSleep()
     
     //clockView.scheduleRepaint();
 }
+

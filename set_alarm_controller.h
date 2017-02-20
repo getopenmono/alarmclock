@@ -8,6 +8,7 @@
 #include <button_view.h>
 #include <date_time.h>
 #include <FunctionPointer.h>
+#include "icon_view.h"
 
 using namespace mono;
 using namespace mono::ui;
@@ -18,6 +19,8 @@ protected:
     IntegerSelectView hourSel, minSel;
     OnOffButtonView activeBtn;
     ButtonView closeBtn;
+    IconView clockview;
+    
     DateTime alarm;
     bool active;
     

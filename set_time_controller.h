@@ -5,6 +5,7 @@
 #include <mono.h>
 #include "number_select_view.h"
 #include "scene.h"
+#include "icon_view.h"
 
 using namespace mono::ui;
 
@@ -13,6 +14,7 @@ protected:
     
     IntegerSelectView hourSelect, minSelect;
     ButtonView clockBtn;
+    IconView clockView;
     mbed::FunctionPointer dismissHandler;
     bool clockIsSet;
     

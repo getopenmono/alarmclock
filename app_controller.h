@@ -2,14 +2,16 @@
 #define app_controller_h
 
 #include <mono.h>
+#include <icon_image.h>
 #include "number_select_view.h"
 #include "scene.h"
 #include "set_time_controller.h"
 #include "set_alarm_controller.h"
+#include "icon_view.h"
 
 using namespace mono;
 using namespace mono::ui;
-
+using namespace mono::display;
 
 class AppController : public mono::IApplication {
 public:
@@ -22,6 +24,9 @@ public:
     DateTime alarmTime;
     TextLabelView clockView;
     ButtonView helpLbl, alarmView, dismissView, snoozeView;
+    
+    IconView alarmIcon, clockIcon;
+    
     bool alarmSounding;
     static const int beepSequence[3][2];
     int beepIndex;

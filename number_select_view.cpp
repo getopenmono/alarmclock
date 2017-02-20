@@ -101,9 +101,24 @@ bool IntegerSelectView::WrapAround() const
 void IntegerSelectView::repaint()
 {
     //draw border
-    painter.setBackgroundColor(StandardBackgroundColor);
+    painter.setBackgroundColor(display::MidnightBlueColor);
     painter.setForegroundColor(StandardBorderColor);
-    painter.drawRect(viewRect);
+    
+    geo::Rect sqRct = viewRect;
+    sqRct.appendY(5);
+    sqRct.setHeight(viewRect.Height()-10);
+    
+    int deStep = sqRct.Width() / 10;
+    int wh = sqRct.Width() / 2;
+    int c = sqRct.Center().X();
+    for (int y=0; y<5; y++) {
+        painter.drawHLine(c-wh, c+wh, sqRct.Y2()+y, true);
+        painter.drawHLine(c-wh, c+wh, sqRct.Y()-y, true);
+        wh -= deStep;
+    }
+    
+    painter.drawFillRect(sqRct, true);
+    //painter.drawRect(viewRect);
     
     display::Color textColor = StandardTextColor;
     if (touchInProgress)
@@ -114,7 +129,7 @@ void IntegerSelectView::repaint()
     tr.setAlignment(display::TextRender::ALIGN_CENTER);
     tr.setAlignment(display::TextRender::ALIGN_MIDDLE);
     
-    tr.setForeground(StandardBackgroundColor);
+    tr.setForeground(painter.BackgroundColor());
     tr.drawInRect(viewRect, lastPaintedValue, *textFont, false);
     
     String newValue = String::Format("%02d",curValue);
