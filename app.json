@@ -1,0 +1,23 @@
+{ "id":"com.openmono.alarmclock"
+, "name":"Alarm Clock"
+, "author":"Kristoffer Andersen"
+, "authorwebsite":"http://developer.openmono.com"
+, "license":"MIT"
+, "headline":"A good old fashioned alarm clock."
+, "description":
+  [ "The simple alarm clock lets you set a time and will notify at that time."
+  , "It uses Mono built-in RTC to track time. You can set the alarm, and snooze when it goes off. This gives you an extra 9 mintues of sleep."
+  , "*Note*: Use of this clock is at you own responibility."
+  ]
+, "binary":"alarmclock.elf"
+, "sourceurl":"https://github.com/getopenmono/alarmclock"
+, "required":["display","touch", "clock", "buzzer"]
+, "optional":[]
+, "screenshots":
+  [ "alarm1.png"
+   ,"alarm2.png"
+   ,"alarm3.png"
+  ]
+, "cover": "alarm1.png"
+, "kioskapi": 1
+}
