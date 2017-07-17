@@ -33,9 +33,9 @@ namespace mono { namespace ui {
             changeHandler.attach<Context>(cnxt, memptr);
         }
         
-        virtual void TouchBegin(TouchEvent &event);
-        virtual void TouchEnd(TouchEvent &event);
-        virtual void TouchMove(TouchEvent &event);
+        virtual void touchBegin(TouchEvent &event);
+        virtual void touchEnd(TouchEvent &event);
+        virtual void touchMove(TouchEvent &event);
         
         void setValue(int val);
         int Value() const;

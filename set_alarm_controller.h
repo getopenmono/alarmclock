@@ -2,7 +2,7 @@
 #ifndef set_alarm_controller_h
 #define set_alarm_controller_h
 
-#include "scene.h"
+#include <scene_controller.h>
 #include "number_select_view.h"
 #include <on_off_button_view.h>
 #include <button_view.h>
@@ -13,7 +13,7 @@
 using namespace mono;
 using namespace mono::ui;
 
-class SetAlarmController : public Scene {
+class SetAlarmController : public SceneController {
 protected:
     
     IntegerSelectView hourSel, minSel;
@@ -38,9 +38,9 @@ public:
     
     void setAlarmTime(DateTime time);
     
-    void didShowScene(const Scene &);
+    void didShowScene(const SceneController &);
     
-    void didHideScene(const Scene &);
+    void didHideScene(const SceneController &);
     
     void requestDismiss();
     

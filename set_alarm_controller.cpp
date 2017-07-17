@@ -9,7 +9,7 @@ using mono::geo::Point;
 //hourSelect(Rect(35, 30, 50, 70), 0, 23),
 //minSelect(Rect(90, 30, 50, 70), 0, 59),
 
-SetAlarmController::SetAlarmController() : Scene(),
+SetAlarmController::SetAlarmController() : SceneController(),
     hourSel(Rect(25, 35, 50, 70), 0, 23),
     minSel(Rect(100, 35, 50, 70), 0, 59),
     activeBtn(Rect(25,110,126,35)),
@@ -54,14 +54,14 @@ DateTime SetAlarmController::alarmTime() const
     return alarm;
 }
 
-void SetAlarmController::didShowScene(const mono::ui::Scene &)
+void SetAlarmController::didShowScene(const mono::ui::SceneController &)
 {
     hourSel.setValue(alarm.Hours());
     minSel.setValue(alarm.Minutes());
     activeBtn.setState(active);
 }
 
-void SetAlarmController::didHideScene(const mono::ui::Scene &)
+void SetAlarmController::didHideScene(const mono::ui::SceneController &)
 {
     DateTime now = DateTime::now();
     alarm = DateTime(now.Year(), now.Month(), now.Days(), hourSel.Value(), minSel.Value(), 0);

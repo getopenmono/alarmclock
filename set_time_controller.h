@@ -4,12 +4,12 @@
 
 #include <mono.h>
 #include "number_select_view.h"
-#include "scene.h"
+#include <scene_controller.h>
 #include "icon_view.h"
 
 using namespace mono::ui;
 
-class SetTimeController : public Scene {
+class SetTimeController : public SceneController {
 protected:
     
     IntegerSelectView hourSelect, minSelect;
@@ -22,8 +22,8 @@ public:
     
     SetTimeController();
     
-    void didShow(const Scene &);
-    void didHide(const Scene &);
+    void didShow(const SceneController &);
+    void didHide(const SceneController &);
     
     void requestDismiss();
     bool IsClockSet() const;

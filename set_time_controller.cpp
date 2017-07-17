@@ -6,7 +6,7 @@ using namespace mono;
 using mono::geo::Rect;
 using mono::geo::Point;
 
-SetTimeController::SetTimeController() : Scene(),
+SetTimeController::SetTimeController() : SceneController(),
     hourSelect(Rect(25, 30, 50, 70), 0, 23),
     minSelect(Rect(100, 30, 50, 70), 0, 59),
     clockBtn(Rect(25,220-65,125,35), "Set time"),
@@ -36,14 +36,14 @@ bool SetTimeController::IsClockSet() const
     return clockIsSet;
 }
 
-void SetTimeController::didShow(const Scene &)
+void SetTimeController::didShow(const SceneController &)
 {
     DateTime now = DateTime::now();
     hourSelect.setValue(now.Hours());
     minSelect.setValue(now.Minutes());
 }
 
-void SetTimeController::didHide(const mono::ui::Scene &)
+void SetTimeController::didHide(const mono::ui::SceneController &)
 {
     DateTime now = DateTime::now();
     DateTime newTime(now.Year(), now.Month(), now.Days(),

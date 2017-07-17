@@ -2,9 +2,8 @@
 #define app_controller_h
 
 #include <mono.h>
-#include <icon_image.h>
 #include "number_select_view.h"
-#include "scene.h"
+#include <scene_controller.h>
 #include "set_time_controller.h"
 #include "set_alarm_controller.h"
 #include "icon_view.h"
@@ -24,14 +23,14 @@ public:
     DateTime alarmTime;
     TextLabelView clockView;
     ButtonView helpLbl, alarmView, dismissView, snoozeView;
-    
+
     IconView alarmIcon, clockIcon;
-    
+
     bool alarmSounding;
     static const int beepSequence[3][2];
     int beepIndex;
-    
-    Scene mainScene, setClockScene;
+
+    SceneController mainScene, setClockScene;
     SetAlarmController setAlarmCtrl;
     SetTimeController setTimeCtrl;
 
@@ -44,16 +43,16 @@ public:
     void showSetAlarm();
     void showSetClock();
     void showMain();
-    
+
     void fireAlarm();
     void dismissAlarm();
     void snoozeAlarm();
-    
+
     void incrementBeep();
     void incrementBeepPause();
-    
-    void didShowScene(const Scene&);
-    void didHideScene(const Scene&);
+
+    void didShowScene(const SceneController&);
+    void didHideScene(const SceneController&);
 
     void monoWakeFromReset();
     void monoWillGotoSleep();

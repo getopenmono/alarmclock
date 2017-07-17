@@ -115,7 +115,7 @@ void AppController::showMain()
     mainScene.show();
 }
 
-void AppController::didShowScene(const Scene &scene)
+void AppController::didShowScene(const SceneController &scene)
 {
     if (&scene == &mainScene)
     {
@@ -173,7 +173,7 @@ void AppController::didShowScene(const Scene &scene)
     }
 }
 
-void AppController::didHideScene(const mono::ui::Scene &scene)
+void AppController::didHideScene(const mono::ui::SceneController &scene)
 {
     if (&scene == &setClockScene)
     {
@@ -254,7 +254,7 @@ void AppController::incrementBeep()
 void AppController::incrementBeepPause()
 {
     IApplicationContext::Instance->Buzzer->buzzKill();
-    Timer::callOnce<AppController>(beepSequence[beepIndex++][1], this, &AppController::incrementBeep);
+    mono::Timer::callOnce<AppController>(beepSequence[beepIndex++][1], this, &AppController::incrementBeep);
 }
 
 // MARK: Power control interface

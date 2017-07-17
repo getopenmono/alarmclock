@@ -18,20 +18,20 @@ IntegerSelectView::IntegerSelectView(const geo::Rect &rect, int minimum,
     wrapAround = true;
 }
 
-void IntegerSelectView::TouchBegin(TouchEvent &event)
+void IntegerSelectView::touchBegin(TouchEvent &event)
 {
     touchStart = event.Position;
     touchInProgress = true;
     this->scheduleRepaint();
 }
 
-void IntegerSelectView::TouchEnd(TouchEvent &)
+void IntegerSelectView::touchEnd(TouchEvent &)
 {
     touchInProgress = false;
     this->scheduleRepaint();
 }
 
-void IntegerSelectView::TouchMove(TouchEvent &event)
+void IntegerSelectView::touchMove(TouchEvent &event)
 {
     int distance = event.Position.Y() - touchStart.Y();
     if (distance > incrementDistance)
