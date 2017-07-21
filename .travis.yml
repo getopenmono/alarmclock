@@ -1,0 +1,12 @@
+sudo: required
+
+language: c++
+
+services:
+  - docker
+
+before_script:
+  - docker pull monolit/sdk
+
+script:
+  - docker run -tie APP_DIR=/alarmclock -v $HOME:/alarmclock
