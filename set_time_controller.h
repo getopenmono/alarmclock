@@ -20,7 +20,7 @@ protected:
     
 public:
     
-    SetTimeController();
+    SetTimeController(const mono::geo::Rect &rct);
     
     void didShow(const SceneController &);
     void didHide(const SceneController &);

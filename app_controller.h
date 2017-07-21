@@ -6,7 +6,8 @@
 #include <scene_controller.h>
 #include "set_time_controller.h"
 #include "set_alarm_controller.h"
-#include "icon_view.h"
+#include "statusbar_scene.h"
+
 
 using namespace mono;
 using namespace mono::ui;
@@ -18,9 +19,10 @@ public:
     static const int blinkIntervalSecs = 1;
     static const int maxAlarmMinutes = 3;
     static const int snoozeTimeMinutes = 9;
-
+    
     PowerSaver pwrsave;
     DateTime alarmTime;
+    ::StatusbarScene statusBar;
     TextLabelView clockView;
     ButtonView helpLbl, alarmView, dismissView, snoozeView;
 
@@ -30,7 +32,7 @@ public:
     static const int beepSequence[3][2];
     int beepIndex;
 
-    SceneController mainScene, setClockScene;
+    SceneController mainScene; //, setClockScene;
     SetAlarmController setAlarmCtrl;
     SetTimeController setTimeCtrl;
 

@@ -9,12 +9,12 @@ using mono::geo::Point;
 //hourSelect(Rect(35, 30, 50, 70), 0, 23),
 //minSelect(Rect(90, 30, 50, 70), 0, 59),
 
-SetAlarmController::SetAlarmController() : SceneController(),
+SetAlarmController::SetAlarmController(const Rect &rct) : SceneController(rct),
     hourSel(Rect(25, 35, 50, 70), 0, 23),
     minSel(Rect(100, 35, 50, 70), 0, 59),
     activeBtn(Rect(25,110,126,35)),
     closeBtn(Rect(25,220-50, 126, 35), "Back"),
-    clockview(Point(176/2-24/2, 11), alarmClock24)
+    clockview(Point(176/2-24/2, 20), alarmClock24)
 {
     addView(hourSel);
     addView(minSel);

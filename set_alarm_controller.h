@@ -9,6 +9,7 @@
 #include <date_time.h>
 #include <FunctionPointer.h>
 #include "icon_view.h"
+#include <rect.h>
 
 using namespace mono;
 using namespace mono::ui;
@@ -28,7 +29,7 @@ protected:
     
 public:
     
-    SetAlarmController();
+    SetAlarmController(const mono::geo::Rect &rct);
     
     bool IsAlarmSet() const;
     

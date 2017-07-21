@@ -14,13 +14,17 @@ const int AppController::beepSequence[3][2] = {{200,100}, {200,100}, {0,400}};
 
 AppController::AppController() :
     pwrsave(30000, 10000, 11, 100),
+    statusBar(Point(0,0)),
     clockView(Rect(10,50,146,50), "00:00"),
     helpLbl(Rect(10,220-45,156,35), "Alarm clock"),
     alarmView(Rect(10,100,156,35), "Set alarm"),
     dismissView(Rect(10,220-45,156,35),"Off"),
     snoozeView(Rect(10,110-17,156,35), "Snooze"),
     alarmIcon(geo::Point(176/2-16/2+10, 110), alarmBell16),
-    clockIcon(geo::Point(156-24, 105), alarmClock24)
+    clockIcon(geo::Point(156-24, 105), alarmClock24),
+    mainScene(Rect(0, 20, 176, 200)),
+    setAlarmCtrl(Rect(0, 20, 176, 200)),
+    setTimeCtrl(Rect(0, 20, 176, 200))
 {
 #ifndef EMUNO
     PWM_WritePeriod(100);
@@ -66,6 +70,7 @@ AppController::AppController() :
     alarmTask.setTask<AppController>(this, &AppController::fireAlarm);
     alarmTask.setRunInSleep(true);
     
+    statusBar.show();
     mainScene.show();
 }
 
@@ -113,6 +118,7 @@ void AppController::showMain()
     setTimeCtrl.hide();
     setAlarmCtrl.hide();
     mainScene.show();
+    statusBar.show();
 }
 
 void AppController::didShowScene(const SceneController &scene)
@@ -175,10 +181,10 @@ void AppController::didShowScene(const SceneController &scene)
 
 void AppController::didHideScene(const mono::ui::SceneController &scene)
 {
-    if (&scene == &setClockScene)
-    {
-        
-    }
+//    if (&scene == &setClockScene)
+//    {
+//
+//    }
 }
 
 void AppController::fireAlarm()
@@ -275,6 +281,8 @@ void AppController::monoWakeFromSleep()
     setAlarmCtrl.scheduleRepaint();
     mainScene.scheduleRepaint();
     pwrsave.undim();
+    
+    statusBar.scheduleRepaint();
     
     //clockView.scheduleRepaint();
 }

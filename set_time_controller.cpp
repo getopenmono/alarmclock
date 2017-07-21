@@ -6,11 +6,11 @@ using namespace mono;
 using mono::geo::Rect;
 using mono::geo::Point;
 
-SetTimeController::SetTimeController() : SceneController(),
+SetTimeController::SetTimeController(const Rect &rct) : SceneController(rct),
     hourSelect(Rect(25, 30, 50, 70), 0, 23),
     minSelect(Rect(100, 30, 50, 70), 0, 59),
     clockBtn(Rect(25,220-65,125,35), "Set time"),
-    clockView(Point(176/2-24/2, 11), clock24)
+    clockView(Point(176/2-24/2, 20), clock24)
 {
     addView(hourSelect);
     addView(minSelect);
