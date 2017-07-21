@@ -9,4 +9,6 @@ before_script:
   - docker pull monolit/sdk
 
 script:
+  - pwd
+  - echo "$HOME/$TRAVIS_REPO_SLUG"; ls -l $HOME/$TRAVIS_REPO_SLUG
   - docker run -tie APP_DIR=/alarmclock -v $HOME/$TRAVIS_REPO_SLUG:/alarmclock monolit/sdk
