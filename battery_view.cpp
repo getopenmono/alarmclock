@@ -95,10 +95,11 @@ uint8_t BatteryView::criticalPercentAmount() const
 void BatteryView::repaint()
 {
     // battery dot size
-    painter.setForegroundColor(StandardBorderColor);
+    painter.setForegroundColor(borderColor);
 
     //draw bounds
     Rect bounds(viewRect.X(), viewRect.Y(), viewRect.Width() - dotSize, viewRect.Height());
+    painter.drawFillRect(bounds, true);
     painter.drawRect(bounds);
 
     //draw dot

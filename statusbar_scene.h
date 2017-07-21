@@ -12,6 +12,7 @@ class StatusbarScene : public SceneController, public mono::power::IPowerAware
 {
     BatteryView battery;
     IconView wifiOn;
+    mono::Timer chargingTimer;
 
 public:
     
