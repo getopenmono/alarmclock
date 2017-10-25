@@ -7,7 +7,7 @@
 , "description":
   [ "The simple alarm clock lets you set a time and will notify at that time."
   , "It uses Mono built-in RTC to track time. You can set the alarm, and snooze when it goes off. This gives you an extra 9 mintues of sleep."
-  , "*Note*: Use of this clock is at you own responibility."
+  , "*Note*: Use of this clock is at you own responsibility."
   ]
 , "binary":"alarmclock.elf"
 , "sourceurl":"https://github.com/getopenmono/alarmclock"
